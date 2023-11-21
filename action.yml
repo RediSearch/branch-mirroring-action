@@ -14,6 +14,10 @@ inputs:
     description: "Username for ssh connection"
     required: false
     default: "git"
+  source_branch_id:
+    description: "The branch ID for the source"
+    required: false
+    default: "codecommit-demo-"
 runs:
   using: 'docker'
   image: 'Dockerfile'
