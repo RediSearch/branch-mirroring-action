@@ -4,13 +4,11 @@ set -eu
 /setup-ssh.sh
 
 export GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -l $INPUT_SSH_USERNAME"
-git checkout codecommit-demo-1
-# git remote add -m "$INPUT_TARGET_REPO_URL"
-git remote set-url origin "$INPUT_TARGET_REPO_URL"
+git remote set-url codecommit "$INPUT_TARGET_REPO_URL"
 git config --local user.name actions-user
 git config --local user.email "actions@github.com"
 git commit -m "initial commit"
-push -u origin codecommit-demo-1:main --force
+push -u codecommit codecommit-demo-1:main --force
 
 # NOTE: Since `post` execution is not supported for local action from './' for now, we need to
 # run the command by hand.
