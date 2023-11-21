@@ -10,7 +10,7 @@ git remote set-url origin "$INPUT_TARGET_REPO_URL"
 git config --local user.name actions-user
 git config --local user.email "actions@github.com"
 git commit -m "initial commit"
-git push origin codecommit-demo-1:main --force
+push -u origin codecommit-demo-1:main --force
 
 # NOTE: Since `post` execution is not supported for local action from './' for now, we need to
 # run the command by hand.
