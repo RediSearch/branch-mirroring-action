@@ -1,7 +1,7 @@
 # branch-mirroring-action
 
 
-This is a branch of pixta-dev/repository-mirroring-action that focuses on a specific repo branch, not the whole repo.
+This is a fork originating from the  pixta-dev/repository-mirroring-action that focuses on a specific repo branch, not the whole repo.
 
 [![Test](https://github.com/pixta-dev/repository-mirroring-action/actions/workflows/test.yml/badge.svg)](https://github.com/pixta-dev/repository-mirroring-action/actions/workflows/test.yml)
 
@@ -33,12 +33,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
+      - uses: RediSearch/repository-mirroring-action@v1
         with:
           target_repo_url:
             git@gitlab.com:<username>/<target_repository_name>.git
           ssh_private_key:                              # <-- use 'secrets' to pass credential information.
             ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+          source_branch_id:
+            ${{ github.ref_name }}   
 
   to_codecommit:                                        # <-- different jobs are executed in parallel.
     runs-on: ubuntu-latest
@@ -46,7 +48,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
+      - uses: RediSearch/repository-mirroring-action@v1
         with:
           target_repo_url:
             ssh://git-codecommit.<somewhere>.amazonaws.com/v1/repos/<target_repository_name>
@@ -54,4 +56,6 @@ jobs:
             ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY }}
           ssh_username:                                 # <-- (for codecommit) you need to specify ssh-key-id as ssh username.
             ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY_ID }}
+          source_branch_id:
+            ${{ github.ref_name }}   
 ```
